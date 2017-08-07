@@ -48,18 +48,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="modificarCategoria">
-<xs:sequence>
-<xs:element name="json" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="modificarCategoriaResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="cargarCategoria">
 <xs:sequence>
 <xs:element name="arg0" type="xs:string" minOccurs="0"/>
@@ -72,6 +60,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="modificarCategoria">
+<xs:sequence>
+<xs:element name="json" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarCategoriaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="insertarArticulo">
 <xs:sequence>
 <xs:element name="json" type="xs:string" minOccurs="0"/>
@@ -80,7 +80,7 @@
 
 <xs:complexType name="insertarArticuloResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
+<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -97,7 +97,9 @@
 </xs:complexType>
 
 <xs:complexType name="cargarArticulo">
-<xs:sequence/>
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="cargarArticuloResponse">
@@ -114,7 +116,7 @@
 
 <xs:complexType name="modificarArticuloResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
+<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -138,7 +140,7 @@
 
 <xs:complexType name="borrarArticuloResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
+<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

@@ -1,6 +1,10 @@
 
 package formularios;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import static formularios.Boleta.tabla6;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -526,14 +530,9 @@ public class Productos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
-            //Recuperamos los valores de los jtextfield
-          String codi="";
-          String nomb="";
-          int sto=0;
-          float cost=0;
-          float vent=0;
-          float uti=0;
-          String cat="";
+        String codi="", nomb="", cat="";
+        int sto=0;
+        float cost=0, vent=0, uti=0;
                   
         try {
             codi= jtcodigo.getText();
@@ -556,8 +555,21 @@ public class Productos extends javax.swing.JInternalFrame {
             }
             
         if(band == 1){
+            cliente.WebServicePunto_Service service = new cliente.WebServicePunto_Service();
+            cliente.WebServicePunto port = service.getWebServicePuntoPort();
             int idart = Integer.parseInt(jtidarticulo.getText());
-            if(crudp.update(idart,codi,nomb,sto,cost,vent,uti,cat)){
+            
+            JsonObject object = new JsonObject();
+            object.addProperty("id_articulo", idart);
+            object.addProperty("codigo", codi);
+            object.addProperty("nombre", nomb);
+            object.addProperty("stock", sto);
+            object.addProperty("costo", cost);
+            object.addProperty("venta", vent);
+            object.addProperty("utilidad", uti);
+            object.addProperty("categoria", cat);
+            String json = "["+object.toString()+"]";
+            if(port.modificarArticulo(json)){
                 JOptionPane.showMessageDialog(this, "Articulo modificado con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
                 jtidarticulo.setText("");
                 jtcodigo.setText("");
@@ -576,9 +588,20 @@ public class Productos extends javax.swing.JInternalFrame {
             
         }
         else{
-           
+            cliente.WebServicePunto_Service service = new cliente.WebServicePunto_Service();
+            cliente.WebServicePunto port = service.getWebServicePuntoPort();
+            JsonObject object = new JsonObject();
+            //object.addProperty("id_articulo", "null");
+            object.addProperty("codigo", codi);
+            object.addProperty("nombre", nomb);
+            object.addProperty("stock", sto);
+            object.addProperty("costo", cost);
+            object.addProperty("venta", vent);
+            object.addProperty("utilidad", uti);
+            object.addProperty("categoria", cat);
+            String json = "["+object.toString()+"]";
 
-             if(crudp.insert(codi,nomb,sto,cost,vent,uti,cat)){
+             if(port.insertarArticulo(json)){
                 JOptionPane.showMessageDialog(this,"El articulo ha sido registrado con exito","Exito",JOptionPane.INFORMATION_MESSAGE);
                jtidarticulo.setText("");
                 jtcodigo.setText("");
@@ -628,14 +651,38 @@ public class Productos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbmodificarActionPerformed
 
     private void jbeliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbeliminarActionPerformed
+        cliente.WebServicePunto_Service service = new cliente.WebServicePunto_Service();
+        cliente.WebServicePunto port = service.getWebServicePuntoPort();
+        
         int i = tabla2.getSelectedRow();
-        if(i==-1) 
-        { 
+        String codi="", nomb="", cat="";
+        int sto=0;
+        float cost=0, vent=0, uti=0;
+        if(i==-1){ 
            JOptionPane.showMessageDialog(null,"Seleccione una categoria"); 
         }else{
             String idc = String.valueOf(tabla2.getValueAt(i,0));
             int idca = Integer.parseInt(idc);
-            if(crudp.delete(idca)){
+            codi= String.valueOf(tabla2.getValueAt(i,1));
+            nomb = String.valueOf(tabla2.getValueAt(i,2));
+            sto = Integer.parseInt((String) tabla2.getValueAt(i,3));
+            cost = Float.parseFloat((String) tabla2.getValueAt(i,4));
+            vent= Float.parseFloat((String) tabla2.getValueAt(i,5));
+            uti= Float.parseFloat((String) tabla2.getValueAt(i,6));
+            cat= String.valueOf(tabla2.getValueAt(i,7));
+            
+            JsonObject object = new JsonObject();
+            object.addProperty("id_articulo", idca);
+            object.addProperty("codigo", codi);
+            object.addProperty("nombre", nomb);
+            object.addProperty("stock", sto);
+            object.addProperty("costo", cost);
+            object.addProperty("venta", vent);
+            object.addProperty("utilidad", uti);
+            object.addProperty("categoria", cat);
+            String json = "["+object.toString()+"]";
+            System.out.println(json);
+            if(port.borrarArticulo(json)){
                 JOptionPane.showMessageDialog(this,"El articulo ha sido eliminado con exito","Exito",JOptionPane.INFORMATION_MESSAGE);
                 cargar("");
             }
@@ -690,31 +737,34 @@ public class Productos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jtprecostKeyReleased
     public void cargar(String a){
-        Conexion cc= new Conexion();
-        Connection cn= cc.getConexcionMYSQL();
+        int tama, i=0;
+        Gson gson = new Gson();
+        JsonParser parser = new JsonParser();
+        String [] titulos={"Id articulo","Codigo","Nombre","Stock", "Compra", "Venta", "Utilidad", "Categoria"};
+        String [] registros= new String[8];
+        DefaultTableModel model=new DefaultTableModel(null,titulos);
         try{
-            String [] titulos={"Id articulo","Codigo","Nombre","Stock", "Compra", "Venta", "Utilidad", "Categoria"};
-            String [] registros= new String[8];
-            DefaultTableModel model=new DefaultTableModel(null,titulos);
-            String cons="select * from articulo WHERE CONCAT (nombre,'',categoria) LIKE '%"+a+"%'";
-            Statement st= cn.createStatement();
-            ResultSet rs = st.executeQuery(cons);
-            while(rs.next()){
-                registros[0]=rs.getString(1);
-                registros[1]=rs.getString(2);
-                registros[2]=rs.getString(3);
-                registros[3]=rs.getString(4);
-                registros[4]=rs.getString(5);
-                registros[5]=rs.getString(6);
-                registros[6]=rs.getString(7);
-                registros[7]=rs.getString(8);
-                
+           cliente.WebServicePunto_Service service = new cliente.WebServicePunto_Service();
+           cliente.WebServicePunto port = service.getWebServicePuntoPort();
+           String json=port.cargarArticulo(a);
+           JsonElement arrayElement = parser.parse(json);
+           tama = arrayElement.getAsJsonArray().size();
+            while(i<tama){
+                registros[0]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("id_articulo").getAsString();
+                registros[1]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("codigo").getAsString();
+                registros[2]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("nombre").getAsString();
+                registros[3]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("stock").getAsString();
+                registros[4]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("costo").getAsString();
+                registros[5]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("venta").getAsString();
+                registros[6]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("utilidad").getAsString();
+                registros[7]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("categoria").getAsString();
+                i++;
                 model.addRow(registros);      
-                }
-            tabla2.setModel(model);
-            }catch(Exception e){
-                System.out.println(e.getMessage());
             }
+            tabla2.setModel(model);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
     private void jtbuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbuscarKeyReleased
         cargar(jtbuscar.getText());

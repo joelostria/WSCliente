@@ -348,8 +348,7 @@ public class Categorias extends javax.swing.JInternalFrame {
         cliente.WebServicePunto_Service service = new cliente.WebServicePunto_Service();
         cliente.WebServicePunto port = service.getWebServicePuntoPort();
         int i = tabla1.getSelectedRow();
-        if(i==-1) 
-        { 
+        if(i==-1){ 
            JOptionPane.showMessageDialog(null,"Seleccione una categoria"); 
         }else{
             String idc = String.valueOf(tabla1.getValueAt(i,0));
