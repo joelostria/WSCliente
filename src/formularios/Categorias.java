@@ -8,6 +8,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import metodos.Conexion;
 import metodos.CrudCategoria;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 
 
 public class Categorias extends javax.swing.JInternalFrame {
@@ -21,6 +26,7 @@ public class Categorias extends javax.swing.JInternalFrame {
         usu = Menu.getUsuario();
         jtidcategoria.setEditable(false);
         crud = new CrudCategoria();
+        
         if(!"administrador".equals(usu)){
             for(int i=0;i<jPanel2.getComponents().length;i++) {
                 jPanel2.getComponent(i).setEnabled(false);
@@ -272,11 +278,16 @@ public class Categorias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtidcategoriaActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
+        cliente.WebServicePunto_Service service = new cliente.WebServicePunto_Service();
+        cliente.WebServicePunto port = service.getWebServicePuntoPort();
         if(band == 1){
             int idcat = Integer.parseInt(jtidcategoria.getText());
             String cat = jtcategoria.getText();
-            
-            if(crud.update(idcat,cat)){
+            JsonObject object = new JsonObject();
+            object.addProperty("id", idcat);
+            object.addProperty("categoria", cat);
+            String json = "["+object.toString()+"]";
+            if(port.modificarCategoria(json)){
                 JOptionPane.showMessageDialog(this, "Categoria modificada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
                 jtidcategoria.setText("");
                 jtcategoria.setText("");
@@ -291,21 +302,23 @@ public class Categorias extends javax.swing.JInternalFrame {
         else{
              //Recuperamos los valores de los jtextfield
             String categoria = jtcategoria.getText();
-        
             //Si un jtextfield esta vacio mandar error
             if(categoria.trim().length()== 0){
                 JOptionPane.showMessageDialog(this, "Falta llenar algunos datos", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
-             if(crud.insert(categoria)){
+            JsonObject object = new JsonObject();
+            object.addProperty("id_categoria", "null");
+            object.addProperty("categoria", categoria);
+            String json = "["+object.toString()+ "]";
+            if(port.insertarCategoria(json)){
                 JOptionPane.showMessageDialog(this,"La categoria ha sido registrada con exito","Exito",JOptionPane.INFORMATION_MESSAGE);
                 jtcategoria.setText("");
                 cargar("");
             }
             else{
                 JOptionPane.showMessageDialog(this, "Error al registrar los datos", "Error", JOptionPane.ERROR_MESSAGE);
-             }
+            }
             
         }
        
@@ -313,8 +326,7 @@ public class Categorias extends javax.swing.JInternalFrame {
 
     private void btnmodifcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodifcarActionPerformed
         int i = tabla1.getSelectedRow();
-        if(i==-1) 
-        { 
+        if(i==-1){ 
            JOptionPane.showMessageDialog(null,"Seleccione una categoria"); 
         }else{
             idcate = String.valueOf(tabla1.getValueAt(i,0));
@@ -333,6 +345,8 @@ public class Categorias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btncancelarActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
+        cliente.WebServicePunto_Service service = new cliente.WebServicePunto_Service();
+        cliente.WebServicePunto port = service.getWebServicePuntoPort();
         int i = tabla1.getSelectedRow();
         if(i==-1) 
         { 
@@ -340,7 +354,14 @@ public class Categorias extends javax.swing.JInternalFrame {
         }else{
             String idc = String.valueOf(tabla1.getValueAt(i,0));
             int idca = Integer.parseInt(idc);
-            if(crud.delete(idca)){
+            String cat = String.valueOf(tabla1.getValueAt(i,1));
+            
+            JsonObject object = new JsonObject();
+            object.addProperty("id", idca);
+            object.addProperty("categoria", cat);
+            String json = "["+object.toString()+"]";
+            
+            if(port.borrarCategoria(json)){
                 JOptionPane.showMessageDialog(this,"La categoria ha sido eliminada con exito","Exito",JOptionPane.INFORMATION_MESSAGE);
                 cargar("");
             }
@@ -379,25 +400,28 @@ public class Categorias extends javax.swing.JInternalFrame {
     }
     
     public void cargar(String a){
-        Conexion cc= new Conexion();
-        Connection cn= cc.getConexcionMYSQL();
+        int tama, i=0;
+        Gson gson = new Gson();
+        JsonParser parser = new JsonParser();
+        String [] titulos={"Id categoria","Categoria"};
+        String [] registros= new String[2];
+        DefaultTableModel model=new DefaultTableModel(null,titulos);
         try{
-            String [] titulos={"Id categoria","Categoria"};
-            String [] registros= new String[2];
-            DefaultTableModel model=new DefaultTableModel(null,titulos);
-            String cons="select * from categoria WHERE categoria LIKE '%"+a+"%'";
-            Statement st= cn.createStatement();
-            ResultSet rs = st.executeQuery(cons);
-            while(rs.next()){
-                registros[0]=rs.getString(1);
-                registros[1]=rs.getString(2);
-                
+            cliente.WebServicePunto_Service service = new cliente.WebServicePunto_Service();
+            cliente.WebServicePunto port = service.getWebServicePuntoPort();
+            String json=port.cargarCategoria(a);
+            JsonElement arrayElement = parser.parse(json);
+            tama = arrayElement.getAsJsonArray().size();
+            while(i<tama){
+                registros[0]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("id").getAsString();
+                registros[1]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("categoria").getAsString();
+                i++;
                 model.addRow(registros);      
-                }
+            }
             tabla1.setModel(model);
-            }catch(Exception e){
-                System.out.println(e.getMessage());
-                 }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

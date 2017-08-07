@@ -23,8 +23,7 @@ public class Productos extends javax.swing.JInternalFrame {
     String idpro, sto ,cod, nom, cate, cos, ven, uti, usu;
     String [] titulos={"Id articulo", "Codigo", "Nombre", "Stock", "Costo", "Venta", "Categoria"};
     DefaultTableModel model;
-    
-    
+   
     private Crud crudp;
     DefaultTableModel modelo = new DefaultTableModel();
     int band = 0;
@@ -39,26 +38,13 @@ public class Productos extends javax.swing.JInternalFrame {
         jtutilidad.setEditable(false);
         cargar("");
         crudp = new Crud();
-       /* tabla2.setModel(modelo);
-        modelo.addColumn("Id articulo");
-        modelo.addColumn("Codigo");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Stock");
-        modelo.addColumn("Costo");
-        modelo.addColumn("Venta");
-        modelo.addColumn("Utilidad");
-        modelo.addColumn("Categoria"); */
-       
+      
         ArrayList<String> lista = new ArrayList<String>();
         lista = crudp.llenarCombo();
         for(int i=0; i<lista.size(); i++){
             jccategoria.addItem(lista.get(i)); 
         }
-        
-        /*Scanner buffer=new Scanner(System.in);
-        String hola;
-        hola=buffer.nextLine();
-        jtcodigo.setText("hola");*/
+       
         if(!"administrador".equals(usu)){
             for(int i=0;i<jPanel2.getComponents().length;i++) {
                 jPanel2.getComponent(i).setEnabled(false);
