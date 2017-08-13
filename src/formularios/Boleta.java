@@ -497,12 +497,12 @@ DefaultTableModel model;
                 }
                 if(tabla6.getRowCount()>0){
                     for(int j=0;j<tabla6.getRowCount();j++){
-                        comp=tabla6.getValueAt(i, 1).toString();
+                        comp=tabla6.getValueAt(j, 1).toString();
                         if(comp == null ? registros[1] == null : comp.equals(registros[1])){
                             float total=0;
                             total=Float.parseFloat(registros[6])*Integer.parseInt(registros[5]);
-                            tabla6.setValueAt(Integer.parseInt(registros[5]), i, 5);
-                            tabla6.setValueAt(venta, i, 6);
+                            tabla6.setValueAt(Integer.parseInt(registros[5]), j, 5);
+                            tabla6.setValueAt(venta, j, 6);
                             k=1;
                         }
                     }
@@ -513,7 +513,7 @@ DefaultTableModel model;
                 }
                 float total2=0;
                 for (int j=0;j<tabla6.getRowCount();j++){
-                    total2+=Float.parseFloat(tabla6.getValueAt(i, 6).toString());
+                    total2+=Float.parseFloat(tabla6.getValueAt(j, 6).toString());
                 }
                 jttotal.setText(""+total2);
                 i++;
