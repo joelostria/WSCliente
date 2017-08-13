@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package formularios;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -450,29 +453,81 @@ DefaultTableModel model;
             enviar();// TODO add your handling code here:
     }//GEN-LAST:event_jtcodigoKeyReleased
     public void enviar(){
+        int tama,i=0;
+        Gson gson = new Gson();
+        JsonParser parser = new JsonParser();
         String codigo;
         codigo=jtcodigo.getText();
         jtcodigo.setText("");
-        Conexion cc= new Conexion();
-        Connection cn= cc.getConexcionMYSQL();
+        //Conexion cc= new Conexion();
+        //Connection cn= cc.getConexcionMYSQL();
         String [] registros= new String[8];
         try {
-            String cons="SELECT * FROM articulo WHERE codigo='"+codigo+"'";
-            Statement st= cn.createStatement();
-            ResultSet rs = st.executeQuery(cons);
+            //String cons="SELECT * FROM articulo WHERE codigo='"+codigo+"'";
+            //Statement st= cn.createStatement();
+            //ResultSet rs = st.executeQuery(cons);
             String comp="";
             int k=0;
-            while(rs.next()){
+            cliente.WebServicePunto_Service service = new cliente.WebServicePunto_Service();
+            cliente.WebServicePunto port = service.getWebServicePuntoPort();
+            String json=port.leerCodigo(codigo);
+            JsonElement arrayElement = parser.parse(json);
+            tama = arrayElement.getAsJsonArray().size();
+            
+            while(i<=tama){
+                
+                registros[0]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("id_articulo").getAsString();
+                registros[1]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("codigo").getAsString();
+                registros[2]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("nombre").getAsString();
+                registros[7]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("stock").getAsString();
+                
+                //registros[4]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("costo").getAsString();
+                registros[3]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("venta").getAsString();
+                //registros[6]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("utilidad").getAsString();
+                registros[4]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("categoria").getAsString();
+                registros[5]=JOptionPane.showInputDialog("ingrese cantidad");                
+                float venta=Integer.parseInt(registros[5])*Float.parseFloat(registros[3]);                
+                registros[6]=String.valueOf(venta);
+                int stock=Integer.parseInt(registros[7]);
+                System.out.println("Hola");
+                if (stock<Integer.parseInt(registros[7])){
+                    JOptionPane.showMessageDialog(null,"Producto agotado o insuficiente", "Mensaje de Error",JOptionPane.ERROR_MESSAGE);
+                    k=1;
+                    return;
+                }
+                if(tabla6.getRowCount()>0){
+                    for(int j=0;j<tabla6.getRowCount();j++){
+                        comp=tabla6.getValueAt(i, 1).toString();
+                        if(comp == null ? registros[1] == null : comp.equals(registros[1])){
+                            float total=0;
+                            total=Float.parseFloat(registros[6])*Integer.parseInt(registros[5]);
+                            tabla6.setValueAt(Integer.parseInt(registros[5]), i, 5);
+                            tabla6.setValueAt(venta, i, 6);
+                            k=1;
+                        }
+                    }
+                    
+                }
+                if(k==0){
+                    model.addRow(registros);
+                }
+                float total2=0;
+                for (int j=0;j<tabla6.getRowCount();j++){
+                    total2+=Float.parseFloat(tabla6.getValueAt(i, 6).toString());
+                }
+                jttotal.setText(""+total2);
+                i++;
+                //model.addRow(registros);      
+            }
+            /*while(rs.next()){
                 registros[0]=rs.getString(1);
                 registros[1]=rs.getString(2);
                 registros[2]=rs.getString(3);
                 registros[3]=rs.getString(6);
                 registros[4]=rs.getString(8);
                 registros[5]=JOptionPane.showInputDialog("ingrese cantidad");;
-                //registros[6]=rs.getString(6);
                 float venta=Integer.parseInt(registros[5])*Float.parseFloat(rs.getString(6));
                 registros[6]=String.valueOf(venta);
-                //System.out.println(tabla6.getRowCount());
                 registros[7]=rs.getString(4);
                 int stock=Integer.parseInt(registros[7]);
                 if (stock<Integer.parseInt(registros[5])){
@@ -490,13 +545,8 @@ DefaultTableModel model;
                         System.out.println(comp+" "+i);
                         System.out.println(registros[1]+" as "+i);
                         if(comp == null ? registros[1] == null : comp.equals(registros[1])){
-                            
-                            /*int cont=Integer.parseInt(tabla6.getValueAt(i,5).toString());
-                            System.out.println(cont+"asa \n");
-                            cont++;*/
                             float total=0;
                             total=Float.parseFloat(registros[6])*Integer.parseInt(registros[5]);
-                            //System.out.println(cont+"\n");
                             tabla6.setValueAt(Integer.parseInt(registros[5]), i, 5);
                             tabla6.setValueAt(venta, i, 6);
                             k=1;
@@ -514,7 +564,7 @@ DefaultTableModel model;
                 jttotal.setText(""+total2);
                 
                 
-            }
+            }*/
             
             //Id articulo", "Codigo", "Nombre", "Venta", "Categoria", "Cantidad", "Venta total
             

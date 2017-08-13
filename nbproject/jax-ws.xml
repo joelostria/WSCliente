@@ -3,8 +3,8 @@
   <services/>
   <clients>
     <client name="WebServicePunto">
-      <wsdl-url>http://localhost:16479/WSPunto/WebServicePunto?WSDL</wsdl-url>
-      <local-wsdl-file>localhost_16479/WSPunto/WebServicePunto.wsdl</local-wsdl-file>
+      <wsdl-url>http://localhost:8080/WSPunto/WebServicePunto?WSDL</wsdl-url>
+      <local-wsdl-file>localhost_8080/WSPunto/WebServicePunto.wsdl</local-wsdl-file>
       <package-name forceReplace="true">cliente</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
@@ -22,7 +22,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:16479/WSPunto/WebServicePunto?WSDL</wsimport-option-value>
+          <wsimport-option-value>http://localhost:8080/WSPunto/WebServicePunto?WSDL</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>

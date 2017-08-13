@@ -5,6 +5,9 @@
  */
 package formularios;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,16 +33,22 @@ public class Productos2 extends javax.swing.JInternalFrame {
     }
     
     public void cargar(String a){
-        Conexion cc= new Conexion();
-        Connection cn= cc.getConexcionMYSQL();
+        
+        /*Conexion cc= new Conexion();
+        Connection cn= cc.getConexcionMYSQL();*/
+        int tama,i=0;
+        Gson gson = new Gson();
+        JsonParser parser = new JsonParser();
+        //String [] titulos={"Id articulo","Codigo","Nombre","Stock", "Compra", "Venta", "Utilidad", "Categoria"};
+        //String [] registros= new String[8];
         try{
             String [] titulos={"Id articulo","Codigo","Nombre","Stock", "Compra", "Venta", "Utilidad", "Categoria"};
             String [] registros= new String[8];
             DefaultTableModel model=new DefaultTableModel(null,titulos);
             String cons="select * from articulo WHERE CONCAT (nombre,'',categoria) LIKE '%"+a+"%'";
-            Statement st= cn.createStatement();
-            ResultSet rs = st.executeQuery(cons);
-            while(rs.next()){
+            //Statement st= cn.createStatement();
+            //ResultSet rs = st.executeQuery(cons);
+            /*while(rs.next()){
                 registros[0]=rs.getString(1);
                 registros[1]=rs.getString(2);
                 registros[2]=rs.getString(3);
@@ -50,7 +59,24 @@ public class Productos2 extends javax.swing.JInternalFrame {
                 registros[7]=rs.getString(8);
                 
                 model.addRow(registros);      
-                }
+                }*/
+            cliente.WebServicePunto_Service service = new cliente.WebServicePunto_Service();
+           cliente.WebServicePunto port = service.getWebServicePuntoPort();
+           String json=port.cargarArticulo(a);
+           JsonElement arrayElement = parser.parse(json);
+           tama = arrayElement.getAsJsonArray().size();
+            while(i<tama){
+                registros[0]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("id_articulo").getAsString();
+                registros[1]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("codigo").getAsString();
+                registros[2]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("nombre").getAsString();
+                registros[3]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("stock").getAsString();
+                registros[4]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("costo").getAsString();
+                registros[5]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("venta").getAsString();
+                registros[6]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("utilidad").getAsString();
+                registros[7]=arrayElement.getAsJsonArray().get(i).getAsJsonObject().get("categoria").getAsString();
+                i++;
+                model.addRow(registros);      
+            }
             tabla5.setModel(model);
             }catch(Exception e){
                 System.out.println(e.getMessage());

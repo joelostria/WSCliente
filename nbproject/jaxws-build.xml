@@ -4,7 +4,7 @@
         *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
         *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
 
-        --><project xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:xalan="http://xml.apache.org/xslt" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
     <!--
                 ===================
                 JAX-WS WSIMPORT SECTION
@@ -18,8 +18,8 @@
     </target>
     <target name="wsimport-client-WebServicePunto" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/WebServicePunto"/>
-        <property name="wsdl-WebServicePunto" location="xml-resources/web-service-references/WebServicePunto/wsdl/localhost_16479/WSPunto/WebServicePunto.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/WebServicePunto" destdir="${build.generated.dir}/jax-wsCache/WebServicePunto" wsdl="${wsdl-WebServicePunto}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:16479/WSPunto/WebServicePunto?WSDL" xnocompile="true" xendorsed="true" package="cliente">
+        <property name="wsdl-WebServicePunto" location="xml-resources/web-service-references/WebServicePunto/wsdl/localhost_8080/WSPunto/WebServicePunto.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/WebServicePunto" destdir="${build.generated.dir}/jax-wsCache/WebServicePunto" wsdl="${wsdl-WebServicePunto}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/WSPunto/WebServicePunto?WSDL" xnocompile="true" xendorsed="true" package="cliente">
             <depends file="${wsdl-WebServicePunto}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/WebServicePunto"/>
         </wsimport>

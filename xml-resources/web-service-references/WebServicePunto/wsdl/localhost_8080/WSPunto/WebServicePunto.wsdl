@@ -4,41 +4,11 @@
 <xsd:import namespace="http://WS/" schemaLocation="http://localhost:8080/WSPunto/WebServicePunto?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="hello">
-<part name="parameters" element="tns:hello"/>
+<message name="insertarCategoria">
+<part name="parameters" element="tns:insertarCategoria"/>
 </message>
-<message name="helloResponse">
-<part name="parameters" element="tns:helloResponse"/>
-</message>
-<message name="borrarCategoria">
-<part name="parameters" element="tns:borrarCategoria"/>
-</message>
-<message name="borrarCategoriaResponse">
-<part name="parameters" element="tns:borrarCategoriaResponse"/>
-</message>
-<message name="cargarArticulo">
-<part name="parameters" element="tns:cargarArticulo"/>
-</message>
-<message name="cargarArticuloResponse">
-<part name="parameters" element="tns:cargarArticuloResponse"/>
-</message>
-<message name="insertarArticulo">
-<part name="parameters" element="tns:insertarArticulo"/>
-</message>
-<message name="insertarArticuloResponse">
-<part name="parameters" element="tns:insertarArticuloResponse"/>
-</message>
-<message name="cargarCategoria">
-<part name="parameters" element="tns:cargarCategoria"/>
-</message>
-<message name="cargarCategoriaResponse">
-<part name="parameters" element="tns:cargarCategoriaResponse"/>
-</message>
-<message name="borrarArticulo">
-<part name="parameters" element="tns:borrarArticulo"/>
-</message>
-<message name="borrarArticuloResponse">
-<part name="parameters" element="tns:borrarArticuloResponse"/>
+<message name="insertarCategoriaResponse">
+<part name="parameters" element="tns:insertarCategoriaResponse"/>
 </message>
 <message name="modificarCategoria">
 <part name="parameters" element="tns:modificarCategoria"/>
@@ -46,11 +16,23 @@
 <message name="modificarCategoriaResponse">
 <part name="parameters" element="tns:modificarCategoriaResponse"/>
 </message>
-<message name="insertarCategoria">
-<part name="parameters" element="tns:insertarCategoria"/>
+<message name="borrarCategoria">
+<part name="parameters" element="tns:borrarCategoria"/>
 </message>
-<message name="insertarCategoriaResponse">
-<part name="parameters" element="tns:insertarCategoriaResponse"/>
+<message name="borrarCategoriaResponse">
+<part name="parameters" element="tns:borrarCategoriaResponse"/>
+</message>
+<message name="cargarCategoria">
+<part name="parameters" element="tns:cargarCategoria"/>
+</message>
+<message name="cargarCategoriaResponse">
+<part name="parameters" element="tns:cargarCategoriaResponse"/>
+</message>
+<message name="insertarArticulo">
+<part name="parameters" element="tns:insertarArticulo"/>
+</message>
+<message name="insertarArticuloResponse">
+<part name="parameters" element="tns:insertarArticuloResponse"/>
 </message>
 <message name="modificarArticulo">
 <part name="parameters" element="tns:modificarArticulo"/>
@@ -58,92 +40,75 @@
 <message name="modificarArticuloResponse">
 <part name="parameters" element="tns:modificarArticuloResponse"/>
 </message>
+<message name="borrarArticulo">
+<part name="parameters" element="tns:borrarArticulo"/>
+</message>
+<message name="borrarArticuloResponse">
+<part name="parameters" element="tns:borrarArticuloResponse"/>
+</message>
+<message name="cargarArticulo">
+<part name="parameters" element="tns:cargarArticulo"/>
+</message>
+<message name="cargarArticuloResponse">
+<part name="parameters" element="tns:cargarArticuloResponse"/>
+</message>
+<message name="leerCodigo">
+<part name="parameters" element="tns:leerCodigo"/>
+</message>
+<message name="leerCodigoResponse">
+<part name="parameters" element="tns:leerCodigoResponse"/>
+</message>
+<message name="hello">
+<part name="parameters" element="tns:hello"/>
+</message>
+<message name="helloResponse">
+<part name="parameters" element="tns:helloResponse"/>
+</message>
 <portType name="WebServicePunto">
-<operation name="hello">
-<input wsam:Action="http://WS/WebServicePunto/helloRequest" message="tns:hello"/>
-<output wsam:Action="http://WS/WebServicePunto/helloResponse" message="tns:helloResponse"/>
-</operation>
-<operation name="borrarCategoria">
-<input wsam:Action="http://WS/WebServicePunto/borrarCategoriaRequest" message="tns:borrarCategoria"/>
-<output wsam:Action="http://WS/WebServicePunto/borrarCategoriaResponse" message="tns:borrarCategoriaResponse"/>
-</operation>
-<operation name="cargarArticulo">
-<input wsam:Action="http://WS/WebServicePunto/cargarArticuloRequest" message="tns:cargarArticulo"/>
-<output wsam:Action="http://WS/WebServicePunto/cargarArticuloResponse" message="tns:cargarArticuloResponse"/>
-</operation>
-<operation name="insertarArticulo">
-<input wsam:Action="http://WS/WebServicePunto/insertarArticuloRequest" message="tns:insertarArticulo"/>
-<output wsam:Action="http://WS/WebServicePunto/insertarArticuloResponse" message="tns:insertarArticuloResponse"/>
-</operation>
-<operation name="cargarCategoria">
-<input wsam:Action="http://WS/WebServicePunto/cargarCategoriaRequest" message="tns:cargarCategoria"/>
-<output wsam:Action="http://WS/WebServicePunto/cargarCategoriaResponse" message="tns:cargarCategoriaResponse"/>
-</operation>
-<operation name="borrarArticulo">
-<input wsam:Action="http://WS/WebServicePunto/borrarArticuloRequest" message="tns:borrarArticulo"/>
-<output wsam:Action="http://WS/WebServicePunto/borrarArticuloResponse" message="tns:borrarArticuloResponse"/>
+<operation name="insertarCategoria">
+<input wsam:Action="http://WS/WebServicePunto/insertarCategoriaRequest" message="tns:insertarCategoria"/>
+<output wsam:Action="http://WS/WebServicePunto/insertarCategoriaResponse" message="tns:insertarCategoriaResponse"/>
 </operation>
 <operation name="modificarCategoria">
 <input wsam:Action="http://WS/WebServicePunto/modificarCategoriaRequest" message="tns:modificarCategoria"/>
 <output wsam:Action="http://WS/WebServicePunto/modificarCategoriaResponse" message="tns:modificarCategoriaResponse"/>
 </operation>
-<operation name="insertarCategoria">
-<input wsam:Action="http://WS/WebServicePunto/insertarCategoriaRequest" message="tns:insertarCategoria"/>
-<output wsam:Action="http://WS/WebServicePunto/insertarCategoriaResponse" message="tns:insertarCategoriaResponse"/>
+<operation name="borrarCategoria">
+<input wsam:Action="http://WS/WebServicePunto/borrarCategoriaRequest" message="tns:borrarCategoria"/>
+<output wsam:Action="http://WS/WebServicePunto/borrarCategoriaResponse" message="tns:borrarCategoriaResponse"/>
+</operation>
+<operation name="cargarCategoria">
+<input wsam:Action="http://WS/WebServicePunto/cargarCategoriaRequest" message="tns:cargarCategoria"/>
+<output wsam:Action="http://WS/WebServicePunto/cargarCategoriaResponse" message="tns:cargarCategoriaResponse"/>
+</operation>
+<operation name="insertarArticulo">
+<input wsam:Action="http://WS/WebServicePunto/insertarArticuloRequest" message="tns:insertarArticulo"/>
+<output wsam:Action="http://WS/WebServicePunto/insertarArticuloResponse" message="tns:insertarArticuloResponse"/>
 </operation>
 <operation name="modificarArticulo">
 <input wsam:Action="http://WS/WebServicePunto/modificarArticuloRequest" message="tns:modificarArticulo"/>
 <output wsam:Action="http://WS/WebServicePunto/modificarArticuloResponse" message="tns:modificarArticuloResponse"/>
 </operation>
+<operation name="borrarArticulo">
+<input wsam:Action="http://WS/WebServicePunto/borrarArticuloRequest" message="tns:borrarArticulo"/>
+<output wsam:Action="http://WS/WebServicePunto/borrarArticuloResponse" message="tns:borrarArticuloResponse"/>
+</operation>
+<operation name="cargarArticulo">
+<input wsam:Action="http://WS/WebServicePunto/cargarArticuloRequest" message="tns:cargarArticulo"/>
+<output wsam:Action="http://WS/WebServicePunto/cargarArticuloResponse" message="tns:cargarArticuloResponse"/>
+</operation>
+<operation name="leerCodigo">
+<input wsam:Action="http://WS/WebServicePunto/leerCodigoRequest" message="tns:leerCodigo"/>
+<output wsam:Action="http://WS/WebServicePunto/leerCodigoResponse" message="tns:leerCodigoResponse"/>
+</operation>
+<operation name="hello">
+<input wsam:Action="http://WS/WebServicePunto/helloRequest" message="tns:hello"/>
+<output wsam:Action="http://WS/WebServicePunto/helloResponse" message="tns:helloResponse"/>
+</operation>
 </portType>
 <binding name="WebServicePuntoPortBinding" type="tns:WebServicePunto">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="hello">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="borrarCategoria">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="cargarArticulo">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="insertarArticulo">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="cargarCategoria">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="borrarArticulo">
+<operation name="insertarCategoria">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -161,7 +126,25 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="insertarCategoria">
+<operation name="borrarCategoria">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="cargarCategoria">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="insertarArticulo">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -171,6 +154,42 @@
 </output>
 </operation>
 <operation name="modificarArticulo">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="borrarArticulo">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="cargarArticulo">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="leerCodigo">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="hello">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

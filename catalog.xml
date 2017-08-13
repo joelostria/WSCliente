@@ -2,4 +2,6 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://localhost:16479/WSPunto/WebServicePunto?WSDL" uri="xml-resources/web-service-references/WebServicePunto/wsdl/localhost_16479/WSPunto/WebServicePunto.wsdl"/>
     <system systemId="http://localhost:16479/WSPunto/WebServicePunto?xsd=1" uri="xml-resources/web-service-references/WebServicePunto/wsdl/localhost_16479/WSPunto/WebServicePunto.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/WSPunto/WebServicePunto?WSDL" uri="xml-resources/web-service-references/WebServicePunto/wsdl/localhost_8080/WSPunto/WebServicePunto.wsdl"/>
+    <system systemId="http://localhost:8080/WSPunto/WebServicePunto?xsd=1" uri="xml-resources/web-service-references/WebServicePunto/wsdl/localhost_8080/WSPunto/WebServicePunto.xsd_1.xsd"/>
 </catalog>

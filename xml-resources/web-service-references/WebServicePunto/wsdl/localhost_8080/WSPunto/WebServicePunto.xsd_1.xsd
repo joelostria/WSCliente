@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://WS/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://WS/">
+
+<xs:element name="borrarArticulo" type="tns:borrarArticulo"/>
+
+<xs:element name="borrarArticuloResponse" type="tns:borrarArticuloResponse"/>
+
+<xs:element name="borrarCategoria" type="tns:borrarCategoria"/>
+
+<xs:element name="borrarCategoriaResponse" type="tns:borrarCategoriaResponse"/>
+
+<xs:element name="cargarArticulo" type="tns:cargarArticulo"/>
+
+<xs:element name="cargarArticuloResponse" type="tns:cargarArticuloResponse"/>
+
+<xs:element name="cargarCategoria" type="tns:cargarCategoria"/>
+
+<xs:element name="cargarCategoriaResponse" type="tns:cargarCategoriaResponse"/>
+
+<xs:element name="hello" type="tns:hello"/>
+
+<xs:element name="helloResponse" type="tns:helloResponse"/>
+
+<xs:element name="insertarArticulo" type="tns:insertarArticulo"/>
+
+<xs:element name="insertarArticuloResponse" type="tns:insertarArticuloResponse"/>
+
+<xs:element name="insertarCategoria" type="tns:insertarCategoria"/>
+
+<xs:element name="insertarCategoriaResponse" type="tns:insertarCategoriaResponse"/>
+
+<xs:element name="leerCodigo" type="tns:leerCodigo"/>
+
+<xs:element name="leerCodigoResponse" type="tns:leerCodigoResponse"/>
+
+<xs:element name="modificarArticulo" type="tns:modificarArticulo"/>
+
+<xs:element name="modificarArticuloResponse" type="tns:modificarArticuloResponse"/>
+
+<xs:element name="modificarCategoria" type="tns:modificarCategoria"/>
+
+<xs:element name="modificarCategoriaResponse" type="tns:modificarCategoriaResponse"/>
+
+<xs:complexType name="borrarCategoria">
+<xs:sequence>
+<xs:element name="json" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="borrarCategoriaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarCategoria">
+<xs:sequence>
+<xs:element name="json" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarCategoriaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cargarCategoria">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cargarCategoriaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="leerCodigo">
+<xs:sequence>
+<xs:element name="codigo" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="leerCodigoResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="insertarArticulo">
+<xs:sequence>
+<xs:element name="json" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="insertarArticuloResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="insertarCategoria">
+<xs:sequence>
+<xs:element name="json" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="insertarCategoriaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cargarArticulo">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cargarArticuloResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarArticulo">
+<xs:sequence>
+<xs:element name="json" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarArticuloResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="borrarArticulo">
+<xs:sequence>
+<xs:element name="json" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="borrarArticuloResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="hello">
+<xs:sequence>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="helloResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

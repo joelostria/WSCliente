@@ -406,6 +406,7 @@ public class Categorias extends javax.swing.JInternalFrame {
         String [] registros= new String[2];
         DefaultTableModel model=new DefaultTableModel(null,titulos);
         try{
+            
             cliente.WebServicePunto_Service service = new cliente.WebServicePunto_Service();
             cliente.WebServicePunto port = service.getWebServicePuntoPort();
             String json=port.cargarCategoria(a);
