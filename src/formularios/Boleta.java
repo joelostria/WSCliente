@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package formularios;
+import cliente.Exception_Exception;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.awt.Color;
 import java.sql.Connection;
@@ -70,30 +72,37 @@ DefaultTableModel model;
     }
     
     void descontarstock(int id_arti, int can){
-       Conexion cc= new Conexion();
-       Connection cn= cc.getConexcionMYSQL();
-       String cap="";
-       int desfinal;
-       String consul="SELECT * FROM articulo WHERE  id_articulo='"+id_arti+"'";
-        try {
-            Statement st= cn.createStatement();
-            ResultSet rs= st.executeQuery(consul);
-            while(rs.next())
-            {
+    try {
+        cliente.WebServicePunto_Service service = new cliente.WebServicePunto_Service();
+        cliente.WebServicePunto port = service.getWebServicePuntoPort();
+        boolean ban=port.realizarVenta(id_arti, can);
+                /*Conexion cc= new Conexion();
+                Connection cn= cc.getConexcionMYSQL();
+                String cap="";
+                int desfinal;
+                String consul="SELECT * FROM articulo WHERE  id_articulo='"+id_arti+"'";
+                try {
+                Statement st= cn.createStatement();
+                ResultSet rs= st.executeQuery(consul);
+                while(rs.next())
+                {
                 cap= rs.getString(4);
-            }
-            
-            
-        } catch (Exception e) {
-        }
-        int fin = Integer.parseInt(cap);
-        desfinal = fin-can;
-        String modi="UPDATE articulo SET stock='"+desfinal+"' WHERE id_articulo = '"+id_arti+"'";
-        try {
-            PreparedStatement pst = cn.prepareStatement(modi);
-            pst.executeUpdate();
-        } catch (Exception e) {
-        }    
+                }
+                
+                
+                } catch (Exception e) {
+                }
+                int fin = Integer.parseInt(cap);
+                desfinal = fin-can;
+                String modi="UPDATE articulo SET stock='"+desfinal+"' WHERE id_articulo = '"+id_arti+"'";
+                try {
+                PreparedStatement pst = cn.prepareStatement(modi);
+                pst.executeUpdate();
+                } catch (Exception e) {
+                }*/    
+                } catch (Exception_Exception ex) {
+        Logger.getLogger(Boleta.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }
     
     static void calcular(){
